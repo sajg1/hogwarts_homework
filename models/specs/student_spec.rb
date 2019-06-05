@@ -11,7 +11,7 @@ class StudentTest < Minitest::Test
       "first_name" => "Harry",
       "last_name" => "Potter",
       "house" => "Gryffindor",
-      "age" => 15
+      "age" => 12
     }
 
     @student1 = Student.new(options)
@@ -30,7 +30,7 @@ class StudentTest < Minitest::Test
   end
 
   def test_age
-    assert_equal(15, @student1.age)
+    assert_equal(12, @student1.age)
   end
 
   def test_pretty_name

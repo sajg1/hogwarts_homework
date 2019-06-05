@@ -17,6 +17,8 @@ class Student
     return "#{first_name} #{last_name}"
   end
 
+#CREATE
+
   def save()
     sql = "INSERT INTO students
     (
@@ -25,10 +27,34 @@ class Student
     VALUES
     (
       $1, $2, $3, $4
-      )"
+      ) RETURNING *"
     values = [@first_name, @last_name, @house, @age]
     result = SqlRunner.run(sql, values).first
     @id = result['id'].to_i
+  end
+
+#DELETE
+
+  def self.delete_all()
+    sql = "DELETE FROM students"
+    SqlRunner.run(sql)
+  end
+
+#READ
+
+  def self.all()
+    sql = "SELECT * FROM students"
+    results = SqlRunner.run(sql)
+    results.map {|student| Student.new(student)}
+  end
+
+#READ
+
+  def self.find_by_id(id)
+    sql = "SELECT * FROM students WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    return Student.new(result.first)
   end
 
 
